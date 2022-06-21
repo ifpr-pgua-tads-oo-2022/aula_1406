@@ -4,35 +4,33 @@ public class ContaCorrente{
 
     private int numeroDaConta;
     private int agencia;
-    private String documento;
     private String senha;
     private boolean ativa;
     private double saldo;
+    private Pessoa pessoa;
 
-    public ContaCorrente(int numeroDaConta, int agencia,
-                         String documento, String senha,
+    public ContaCorrente(int numeroDaConta, int agencia,Pessoa pessoa, String senha,
                          boolean ativa, double saldo){
         
         this.numeroDaConta = numeroDaConta;
         this.agencia = agencia;
-        this.documento = documento;
         this.senha = senha;
         this.ativa = ativa;
         this.saldo = saldo;
+        this.pessoa = pessoa;
 
     }
 
-    public ContaCorrente(int numeroDaConta, int agencia,
-                         String documento, String senha,
+    public ContaCorrente(int numeroDaConta, int agencia, Pessoa pessoa,String senha,
                          boolean ativa){
-        this(numeroDaConta, agencia, 
-             documento, senha, ativa, 0.0);
+        this(numeroDaConta, agencia, pessoa, senha, ativa, 0.0);
     }
 
-    public ContaCorrente(int numeroDaConta, int agencia){
+    public ContaCorrente(int numeroDaConta, int agencia, Pessoa pessoa){
         
         this.numeroDaConta = numeroDaConta;
         this.agencia = agencia;
+        this.pessoa = pessoa;
         
         //this(numeroDaConta, agencia, "","",false,0.0);
     }
@@ -47,13 +45,6 @@ public class ContaCorrente{
         return numeroDaConta;
     }
 
-    public void setDocumento(String val){
-        documento = val;
-    }
-
-    public String getDocumento(){
-        return documento;
-    }
 
     public int getAgencia() {
         return agencia;
@@ -116,9 +107,9 @@ public class ContaCorrente{
         str = "ContaCorrente[";
         str = str + "Numero da Conta:"+numeroDaConta;
         str = str + ",Agencia: "+agencia;
-        str = str + ",Documento: "+documento;
         str = str + ",Ativa: "+ativa;
         str = str + ",Saldo: "+saldo;
+        str = str + ", Pessoa:"+pessoa;
         str = str + "]";
 
         return str;
