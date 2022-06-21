@@ -11,11 +11,16 @@ public class ContaCorrente{
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public ContaCorrente(int numeroDaConta, int agencia,Pessoa pessoa,
                          String documento, String senha,
 =======
     public ContaCorrente(int numeroDaConta, int agencia,Pessoa pessoa, String senha,
 >>>>>>> c77657cc23e8fa41f6872f082bfe3204c40be225
+=======
+    public ContaCorrente(int numeroDaConta, int agencia,
+                         String documento, String senha,
+>>>>>>> parent of 993c008 (código metade aula)
 =======
     public ContaCorrente(int numeroDaConta, int agencia,
                          String documento, String senha,
@@ -28,6 +33,7 @@ public class ContaCorrente{
         this.senha = senha;
         this.ativa = ativa;
         this.saldo = saldo;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         this.setPessoa(pessoa);
@@ -60,16 +66,31 @@ public class ContaCorrente{
 >>>>>>> parent of 993c008 (código metade aula)
     }
 
+=======
+
+    }
+
+    public ContaCorrente(int numeroDaConta, int agencia,
+                         String documento, String senha,
+                         boolean ativa){
+        this(numeroDaConta, agencia, 
+             documento, senha, ativa, 0.0);
+    }
+
+>>>>>>> parent of 993c008 (código metade aula)
     public ContaCorrente(int numeroDaConta, int agencia){
         
         this.numeroDaConta = numeroDaConta;
         this.agencia = agencia;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         this.Pessoa = pessoa;
 =======
         this.pessoa = pessoa;
 >>>>>>> c77657cc23e8fa41f6872f082bfe3204c40be225
+=======
+>>>>>>> parent of 993c008 (código metade aula)
 =======
 >>>>>>> parent of 993c008 (código metade aula)
         
@@ -91,6 +112,13 @@ public class ContaCorrente{
     public void setDocumento(String val){
         documento = val;
     }
+<<<<<<< HEAD
+=======
+
+    public String getDocumento(){
+        return documento;
+    }
+>>>>>>> parent of 993c008 (código metade aula)
 
     public String getDocumento(){
         return documento;

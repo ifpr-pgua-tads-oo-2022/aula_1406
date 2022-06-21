@@ -41,6 +41,9 @@ public class App {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 993c008 (código metade aula)
 =======
 >>>>>>> parent of 993c008 (código metade aula)
             switch(opcao){
@@ -63,6 +66,7 @@ public class App {
                     if(opcao == 1){
                         System.out.println("Digite o saldo:");
                         saldo = scan.nextDouble();
+<<<<<<< HEAD
 <<<<<<< HEAD
                         conta = new ContaCorrente(numeroDaConta, agencia,pessoa,documento,senha,ativa,saldo);
 
@@ -97,6 +101,9 @@ public class App {
                         break;
                 }
             } else if(opcao == 1){
+=======
+                        conta = new ContaCorrente(numeroDaConta, agencia,documento,senha,ativa,saldo);
+>>>>>>> parent of 993c008 (código metade aula)
 =======
                         conta = new ContaCorrente(numeroDaConta, agencia,documento,senha,ativa,saldo);
 >>>>>>> parent of 993c008 (código metade aula)

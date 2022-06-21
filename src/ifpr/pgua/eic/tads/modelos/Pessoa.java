@@ -7,12 +7,15 @@ public class Pessoa {
     private int idade;
     private double salario;
 <<<<<<< HEAD
+<<<<<<< HEAD
     private ContaCorrente contaCorrente;
 <<<<<<< HEAD
 =======
 
 
 >>>>>>> c77657cc23e8fa41f6872f082bfe3204c40be225
+=======
+>>>>>>> parent of 993c008 (código metade aula)
 =======
 >>>>>>> parent of 993c008 (código metade aula)
 
