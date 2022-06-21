@@ -9,8 +9,12 @@ public class ContaCorrente{
     private double saldo;
     private Pessoa pessoa;
 
+<<<<<<< HEAD
     public ContaCorrente(int numeroDaConta, int agencia,Pessoa pessoa,
                          String documento, String senha,
+=======
+    public ContaCorrente(int numeroDaConta, int agencia,Pessoa pessoa, String senha,
+>>>>>>> c77657cc23e8fa41f6872f082bfe3204c40be225
                          boolean ativa, double saldo){
         
         this.numeroDaConta = numeroDaConta;
@@ -18,6 +22,7 @@ public class ContaCorrente{
         this.senha = senha;
         this.ativa = ativa;
         this.saldo = saldo;
+<<<<<<< HEAD
         this.setPessoa(pessoa);
 
     }
@@ -29,13 +34,26 @@ public class ContaCorrente{
                          boolean ativa){
         this(numeroDaConta, agencia,pessoa, 
              documento, senha, ativa, 0.0);
+=======
+        this.pessoa = pessoa;
+
+    }
+
+    public ContaCorrente(int numeroDaConta, int agencia, Pessoa pessoa,String senha,
+                         boolean ativa){
+        this(numeroDaConta, agencia, pessoa, senha, ativa, 0.0);
+>>>>>>> c77657cc23e8fa41f6872f082bfe3204c40be225
     }
 
     public ContaCorrente(int numeroDaConta, int agencia, Pessoa pessoa){
         
         this.numeroDaConta = numeroDaConta;
         this.agencia = agencia;
+<<<<<<< HEAD
         this.Pessoa = pessoa;
+=======
+        this.pessoa = pessoa;
+>>>>>>> c77657cc23e8fa41f6872f082bfe3204c40be225
         
         //this(numeroDaConta, agencia, "","",false,0.0);
     }
@@ -49,6 +67,11 @@ public class ContaCorrente{
     public int getNumeroDaConta(){
         return numeroDaConta;
     }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> c77657cc23e8fa41f6872f082bfe3204c40be225
     public int getAgencia() {
         return agencia;
     }
@@ -120,6 +143,7 @@ public class ContaCorrente{
         str = str + ",Agencia: "+agencia;
         str = str + ",Ativa: "+ativa;
         str = str + ",Saldo: "+saldo;
+        str = str + ", Pessoa:"+pessoa;
         str = str + "]";
 
         return str;
