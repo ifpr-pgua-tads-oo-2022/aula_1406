@@ -6,27 +6,113 @@ import ifpr.pgua.eic.tads.modelos.Pessoa;
 
 
 public class App {
+
+    public static String menuConta(){
+        String str="";
+        
+        str+="1 - Criar conta\n";
+        str+="2 - Depositar\n";
+        str+="3 - Sacar\n";
+        str+="4 - Ver dados\n";
+        str+="0 - Sair\n";
+
+        return str;
+    }
+
+
+
     public static void main(String[] args) throws Exception {
-        ContaCorrente conta;
+        ContaCorrente conta=null;
 
-        System.out.println("Construindo...");
-        conta = new ContaCorrente(200989,567,"123-008","****",false,1000);
-        System.out.println("Construiu...");         
-        System.out.println(conta.toString());
+        Scanner scan = new Scanner(System.in);
+        int opcao;
 
-        ContaCorrente conta2 = new ContaCorrente(200178, 567, "345-000", "*********", true);
-        System.out.println("Conta 2");
-        System.out.println(conta2);
+        int numeroDaConta; 
+        int agencia;
+        String documento; 
+        String senha;
+        boolean ativa; 
+        double saldo,valor;
 
-        double valor = 100;
-        conta.depositar();
-        
-        System.out.println("Saldo após deposito R$:"+conta.getSaldo());
-        
-        conta.sacar(500);
-        System.out.println("Saldo após saque R$:"+conta.getSaldo());
-        
-        System.out.println("Isso é um teste...");
+        do{
+            System.out.println(menuConta());
+            opcao = scan.nextInt();
+            scan.nextLine();
+
+            switch(opcao){
+                case 1:
+                    System.out.println("Digite o número da conta:");
+                    numeroDaConta = scan.nextInt();
+                    scan.nextLine();
+                    System.out.println("Digite a agência:");
+                    agencia = scan.nextInt();
+                    scan.nextLine();
+                    System.out.println("Digite o documento:");
+                    documento = scan.nextLine();
+                    System.out.println("Digite a senha:");
+                    senha = scan.nextLine();
+                    System.out.println("Está ativa (1-sim;0-não)");
+                    opcao = scan.nextInt();
+                    ativa = opcao==1;
+                    System.out.println("Quer informa o saldo? (1-sim;0-não)");
+                    opcao = scan.nextInt();
+                    if(opcao == 1){
+                        System.out.println("Digite o saldo:");
+                        saldo = scan.nextDouble();
+                        conta = new ContaCorrente(numeroDaConta, agencia,documento,senha,ativa,saldo);
+
+                    }else{
+                        conta = new ContaCorrente(numeroDaConta, agencia,documento,senha,ativa);
+    
+                    }
+                    System.out.println("Conta criada!!");
+                break;
+                case 2:
+                    System.out.println("Depositar!");
+                    if(conta != null){
+                        System.out.println("Digite um valor:");
+                        valor = scan.nextDouble();
+                        if(conta.depositar(valor)){
+                            System.out.println("Realizado!");
+                        }else{
+                            System.out.println("Não Realizado! Valor insuficiente!");
+                        }
+                        
+                    }else{
+                        System.out.println("Não permitido! Crie uma conta!");
+                    }
+                break;
+
+                case 3:
+                    System.out.println("Sacar!");
+                    if(conta != null){
+                        System.out.println("Digite um valor:");
+                        valor = scan.nextDouble();
+                        if(conta.sacar(valor)){
+                            System.out.println("Realizado!");
+                        }else{
+                            System.out.println("Não realizado! Valor inválido ou insuficiente!");
+                        }
+                        
+                    }else{
+                        System.out.println("Não permitido! Crie uma conta!");
+                    }
+                break;
+                case 4:
+                    System.out.println("Extrato!");
+                    if(conta != null){
+                        System.out.println(conta);
+                    }else{
+                        System.out.println("Não existe conta criada!");
+                    }
+                    
+                break;
+            }
+
+
+        }while(opcao != 0);
+
+
 
     }
 }

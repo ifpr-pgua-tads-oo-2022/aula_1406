@@ -13,6 +13,7 @@ public class ContaCorrente{
                          String documento, String senha,
                          boolean ativa, double saldo){
         
+        this.numeroDaConta = numeroDaConta;
         this.agencia = agencia;
         this.documento = documento;
         this.senha = senha;
@@ -26,6 +27,14 @@ public class ContaCorrente{
                          boolean ativa){
         this(numeroDaConta, agencia, 
              documento, senha, ativa, 0.0);
+    }
+
+    public ContaCorrente(int numeroDaConta, int agencia){
+        
+        this.numeroDaConta = numeroDaConta;
+        this.agencia = agencia;
+        
+        //this(numeroDaConta, agencia, "","",false,0.0);
     }
 
     //escrita
@@ -75,16 +84,29 @@ public class ContaCorrente{
     }
     
 
-    public void depositar(double valor){
-        saldo = saldo + valor;
+    public boolean depositar(double valor){
+        if(valor > 0){
+            saldo = saldo + valor;
+            return true;
+        }else{
+            return false;
+        }
+        
     }
 
-    public void depositar(){
-        saldo = saldo + 100;
+    //sobrescrita de método
+    public boolean depositar(){
+        return depositar(100);
     }
 
-    public void sacar(double valor){
-        saldo = saldo - valor;
+    public boolean sacar(double valor){
+        if(valor > 0 && valor <= saldo){
+            saldo = saldo - valor;
+            return true;
+        }else{
+            return false;
+        }
+        
     }
 
 
