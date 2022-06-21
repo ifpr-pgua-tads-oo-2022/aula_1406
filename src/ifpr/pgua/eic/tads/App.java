@@ -59,10 +59,10 @@ public class App {
                     if(opcao == 1){
                         System.out.println("Digite o saldo:");
                         saldo = scan.nextDouble();
-                        conta = new ContaCorrente(numeroDaConta, agencia,documento,senha,ativa,saldo);
+                        conta = new ContaCorrente(numeroDaConta, agencia,pessoa,documento,senha,ativa,saldo);
 
                     }else{
-                        conta = new ContaCorrente(numeroDaConta, agencia,documento,senha,ativa);
+                        conta = new ContaCorrente(numeroDaConta, agencia,pessoa,documento,senha,ativa);
     
                     }
                     System.out.println("Conta criada!!");

@@ -6,6 +6,7 @@ public class Pessoa {
     private String cpf;
     private int idade;
     private double salario;
+    private ContaCorrente contaCorrente;
 
     public Pessoa(String nome, String cpf, int idade, double salario) {
         this.nome = nome;

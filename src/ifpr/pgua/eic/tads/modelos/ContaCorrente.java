@@ -4,35 +4,38 @@ public class ContaCorrente{
 
     private int numeroDaConta;
     private int agencia;
-    private String documento;
     private String senha;
     private boolean ativa;
     private double saldo;
+    private Pessoa pessoa;
 
-    public ContaCorrente(int numeroDaConta, int agencia,
+    public ContaCorrente(int numeroDaConta, int agencia,Pessoa pessoa,
                          String documento, String senha,
                          boolean ativa, double saldo){
         
         this.numeroDaConta = numeroDaConta;
         this.agencia = agencia;
-        this.documento = documento;
         this.senha = senha;
         this.ativa = ativa;
         this.saldo = saldo;
+        this.setPessoa(pessoa);
 
     }
 
-    public ContaCorrente(int numeroDaConta, int agencia,
+    
+
+    public ContaCorrente(int numeroDaConta, int agencia,Pessoa pessoa, 
                          String documento, String senha,
                          boolean ativa){
-        this(numeroDaConta, agencia, 
+        this(numeroDaConta, agencia,pessoa, 
              documento, senha, ativa, 0.0);
     }
 
-    public ContaCorrente(int numeroDaConta, int agencia){
+    public ContaCorrente(int numeroDaConta, int agencia, Pessoa pessoa){
         
         this.numeroDaConta = numeroDaConta;
         this.agencia = agencia;
+        this.Pessoa = pessoa;
         
         //this(numeroDaConta, agencia, "","",false,0.0);
     }
@@ -46,15 +49,6 @@ public class ContaCorrente{
     public int getNumeroDaConta(){
         return numeroDaConta;
     }
-
-    public void setDocumento(String val){
-        documento = val;
-    }
-
-    public String getDocumento(){
-        return documento;
-    }
-
     public int getAgencia() {
         return agencia;
     }
@@ -69,6 +63,14 @@ public class ContaCorrente{
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
     }
     
     public boolean isAtiva() {
@@ -116,7 +118,6 @@ public class ContaCorrente{
         str = "ContaCorrente[";
         str = str + "Numero da Conta:"+numeroDaConta;
         str = str + ",Agencia: "+agencia;
-        str = str + ",Documento: "+documento;
         str = str + ",Ativa: "+ativa;
         str = str + ",Saldo: "+saldo;
         str = str + "]";
