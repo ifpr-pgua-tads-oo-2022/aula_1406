@@ -1,36 +1,48 @@
 package ifpr.pgua.eic.tads.modelos;
 
+import java.util.ArrayList;
+
 public class Banco {
     
     private String nome;
     private String telefone;
     private String cnpj;
-    private Pessoa[] pessoas;
+    private ArrayList<Pessoa> pessoas;
     private ContaCorrente[] contaCorrentes;
     private int qtdePessoas;
+    private int qtdeContas;
   
 
     public Banco(String nome, String telefone, String cnpj) {
         this.nome = nome;
         this.telefone = telefone;
         this.cnpj = cnpj;
-        pessoas = new Pessoa[5];
+        pessoas = new ArrayList<Pessoa>();
         qtdePessoas = 0;
         contaCorrentes = new ContaCorrente[5];
+        qtdeContas = 0;
 
     }
 
 
     public void cadastrarPessoa(Pessoa pessoa){
-        this.pessoas[qtdePessoas] = pessoa;
+        this.pessoas.add(pessoa);
         qtdePessoas += 1;
     }
 
-    public Pessoa[] getPessoas(){
+    public ArrayList<Pessoa> getPessoas(){
         return pessoas;
     }
 
+    public void cadastarConta(ContaCorrente conta){
+        this.contaCorrentes[qtdeContas] = conta;
+        qtdeContas += 1;
+    }
 
+    public ContaCorrente[] getContaCorrentes(){
+        return contaCorrentes;
+    }
+ 
     public String getNome() {
         return nome;
     }

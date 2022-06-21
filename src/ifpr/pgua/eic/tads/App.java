@@ -1,5 +1,6 @@
 package ifpr.pgua.eic.tads;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import ifpr.pgua.eic.tads.modelos.Banco;
@@ -92,6 +93,7 @@ public class App {
 
                         pessoa = new Pessoa(nome, cpf, idade, salario);
                         banco.cadastrarPessoa(pessoa);
+
                         System.out.println("Cadastrada!");
                         break;
                     case 2:
@@ -136,6 +138,7 @@ public class App {
 
                             }
                             pessoa.setContaCorrente(conta);
+                            banco.cadastarConta(conta);
                             System.out.println("Conta criada!!");
                         }else{
                             System.out.println("Necessário uma pessoa!");
@@ -188,13 +191,17 @@ public class App {
                 switch(opcao){
                     case 1:
                         System.out.println("Listar pessoas!");
-                        Pessoa[] lista = banco.getPessoas();
-                        for(int i=0;i<lista.length;i++){
-                            System.out.println(lista[i]);
+                        ArrayList<Pessoa> lista = banco.getPessoas();
+                        for(int i=0;i<lista.size();i++){
+                            System.out.println(lista.get(i));
                         }
                     break;
                     case 2:
                         System.out.println("Listar contas!");
+                        ContaCorrente[] contas = banco.getContaCorrentes();
+                        for(int i=0;i<contas.length;i++){
+                            System.out.println(contas[i]);
+                        }
                     break;
                 }   
             }
