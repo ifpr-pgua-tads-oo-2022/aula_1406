@@ -6,18 +6,9 @@ public class Pessoa {
     private String cpf;
     private int idade;
     private double salario;
-<<<<<<< HEAD
-<<<<<<< HEAD
     private ContaCorrente contaCorrente;
-<<<<<<< HEAD
-=======
 
 
->>>>>>> c77657cc23e8fa41f6872f082bfe3204c40be225
-=======
->>>>>>> parent of 993c008 (código metade aula)
-=======
->>>>>>> parent of 993c008 (código metade aula)
 
     public Pessoa(String nome, String cpf, int idade, double salario) {
         this.nome = nome;
@@ -65,6 +56,14 @@ public class Pessoa {
 
     public void setSalario(double salario) {
         this.salario = salario;
+    }
+
+    public ContaCorrente getContaCorrente() {
+        return contaCorrente;
+    }
+
+    public void setContaCorrente(ContaCorrente contaCorrente) {
+        this.contaCorrente = contaCorrente;
     }
 
 
