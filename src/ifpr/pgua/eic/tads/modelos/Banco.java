@@ -8,7 +8,7 @@ public class Banco {
     private String telefone;
     private String cnpj;
     private ArrayList<Pessoa> pessoas;
-    private ContaCorrente[] contaCorrentes;
+    private ArrayList<ContaCorrente> contaCorrentes;
     private int qtdePessoas;
     private int qtdeContas;
   
@@ -19,27 +19,61 @@ public class Banco {
         this.cnpj = cnpj;
         pessoas = new ArrayList<Pessoa>();
         qtdePessoas = 0;
-        contaCorrentes = new ContaCorrente[5];
+        contaCorrentes = new ArrayList<>();
         qtdeContas = 0;
 
     }
 
 
-    public void cadastrarPessoa(Pessoa pessoa){
-        this.pessoas.add(pessoa);
-        qtdePessoas += 1;
+    public Pessoa buscarPessoa(String documento){
+        for(int i=0;i<pessoas.size();i++){
+            if(pessoas.get(i).getCpf().equals(documento)){
+                return pessoas.get(i);
+            }
+        }
+
+        return null;
+    }
+
+    public ContaCorrente buscarConta(int numero, int agencia){
+
+        for(ContaCorrente conta:contaCorrentes){
+            if(conta.getNumeroDaConta()==numero && conta.getAgencia()==agencia){
+                return conta;
+            }
+        }
+
+        return null;
+    }
+
+
+    public boolean cadastrarPessoa(Pessoa pessoa){
+        if(buscarPessoa(pessoa.getCpf())== null){
+            this.pessoas.add(pessoa);
+            qtdePessoas += 1;
+            return true;
+        }
+
+        return false;
+        
     }
 
     public ArrayList<Pessoa> getPessoas(){
         return pessoas;
     }
 
-    public void cadastarConta(ContaCorrente conta){
-        this.contaCorrentes[qtdeContas] = conta;
-        qtdeContas += 1;
+    public boolean cadastarConta(ContaCorrente conta){
+        if(buscarConta(conta.getNumeroDaConta(), conta.getAgencia())==null){
+            this.contaCorrentes.add(conta);
+            qtdeContas += 1;
+            return true;
+        }
+
+        return false;
+        
     }
 
-    public ContaCorrente[] getContaCorrentes(){
+    public ArrayList<ContaCorrente> getContaCorrentes(){
         return contaCorrentes;
     }
  
