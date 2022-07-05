@@ -6,7 +6,7 @@ public class Pessoa {
     private String cpf;
     private int idade;
     private double salario;
-    private ContaCorrente contaCorrente;
+    //private ContaCorrente contaCorrente;
 
 
 
@@ -57,14 +57,14 @@ public class Pessoa {
     public void setSalario(double salario) {
         this.salario = salario;
     }
-
+/*
     public ContaCorrente getContaCorrente() {
         return contaCorrente;
     }
 
     public void setContaCorrente(ContaCorrente contaCorrente) {
         this.contaCorrente = contaCorrente;
-    }
+    }*/
 
 
     public String toString(){
