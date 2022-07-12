@@ -4,8 +4,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import ifpr.pgua.eic.tads.modelos.Banco;
-import ifpr.pgua.eic.tads.modelos.ContaCorrente;
+import ifpr.pgua.eic.tads.modelos.Conta;
+import ifpr.pgua.eic.tads.modelos.ContaEspecial;
+import ifpr.pgua.eic.tads.modelos.ContaPoupanca;
+import ifpr.pgua.eic.tads.modelos.ContaSimples;
 import ifpr.pgua.eic.tads.modelos.Pessoa;
+import ifpr.pgua.eic.tads.modelos.PessoaFisica;
+import ifpr.pgua.eic.tads.modelos.PessoaJuridica;
 
 public class App {
 
@@ -34,28 +39,29 @@ public class App {
     public static String menuConta() {
         String str = "";
 
-        str += "1 - Criar conta\n";
-        str += "2 - Depositar\n";
-        str += "3 - Sacar\n";
-        str += "4 - Ver dados\n";
-        str += "0 - Sair\n";
+        str += "1 - Criar conta Simples\n";
+        str += "2 - Criar conta Especial\n";
+        str += "3 - Criar conta Poupanca\n";
+        str += "4 - Depositar\n";
+        str += "5 - Sacar\n";
+        str += "6 - Ver dados\n";
+        str += "0 - Voltar\n";
 
         return str;
     }
 
     public static String menuPessoa() {
         String str = "";
-        str += "1 - Cadastrar\n";
-        str += "2 - Mostrar\n";
+        str += "1 - Cadastrar Fisica\n";
+        str += "2 - Cadastrar Juridica\n";
+        str += "3 - Mostrar\n";
         str += "0 - Voltar\n";
 
         return str;
-
     }
 
     public static void main(String[] args) throws Exception {
-        ContaCorrente conta = null;
-        Pessoa pessoa = null;
+        
         Banco banco = new Banco("Bamerindus", "009-0099", "001001/00-9");
 
         Scanner scan = new Scanner(System.in);
@@ -66,11 +72,11 @@ public class App {
         String documento;
         String senha;
         boolean ativa;
-        double saldo, valor;
+        double saldo, valor, limite, txRendimento;
 
-        String nome, cpf;
+        String nome, cpf, cnpj;
         int idade;
-        double salario;
+        double salario,patrimonio;
 
         do {
             System.out.println(menuGeral());
@@ -91,23 +97,42 @@ public class App {
                         System.out.println("Digite o salario:");
                         salario = scan.nextDouble();
 
-                        pessoa = new Pessoa(nome, cpf, idade, salario);
+                        PessoaFisica pessoa = new PessoaFisica(nome, cpf, idade, salario);
                         
-                        if(banco.cadastrarPessoa(pessoa)){
+                        if(banco.cadastrarPessoaFisica(pessoa)){
                             System.out.println("Cadastrada!");
                         }else{
                             System.out.println("Erro ao cadastrar. Documento repetido!");
                         }
-
-                        
                         break;
                     case 2:
-                        System.out.println("Detalhes da pessoa");
-                        if (pessoa != null) {
-                            System.out.println(pessoa);
-                        } else {
-                            System.out.println("Pessoa não criada!");
+                        System.out.println("Digite o nome:");
+                        nome = scan.nextLine();
+                        System.out.println("Digite o cnpj:");
+                        cnpj = scan.nextLine();
+                        System.out.println("Digite o patrimonio:");
+                        patrimonio = scan.nextDouble();
+
+                        PessoaJuridica pj = new PessoaJuridica(nome, cnpj, patrimonio);
+                        
+                        if(banco.cadastrarPessoaJuridica(pj)){
+                            System.out.println("Cadastrada!");
+                        }else{
+                            System.out.println("Erro ao cadastrar. Documento repetido!");
                         }
+                        break;
+                    case 3:
+                        
+                        System.out.println("####Pessoas Fisicas####");
+                        for(PessoaFisica temppf:banco.getPessoasFisica()){
+                            System.out.println(temppf);
+                        }
+                        
+                        System.out.println("####Pessoas Juridica####");
+                        for(PessoaJuridica pj1:banco.getPessoasJuridica()){
+                            System.out.println(pj1);
+                        }
+
                         break;
                 }
             } else if (opcao == 1) {
@@ -119,12 +144,12 @@ public class App {
                 switch (opcao) {
                     case 1:
 
-                        System.out.println("Digite o documento da pessoa:");
+                        System.out.println("Digite o documento da pessoa fisica:");
                         documento = scan.nextLine();
 
-                        pessoa = banco.buscarPessoa(documento);
+                        PessoaFisica pessoaFisica = banco.buscarPessoaFisica(documento);
 
-                        if (pessoa != null) {
+                        if (pessoaFisica != null) {
                             System.out.println("Digite o número da conta:");
                             numeroDaConta = scan.nextInt();
                             scan.nextLine();
@@ -137,35 +162,98 @@ public class App {
                             System.out.println("Está ativa (1-sim;0-não)");
                             opcao = scan.nextInt();
                             ativa = opcao == 1;
-                            System.out.println("Quer informa o saldo? (1-sim;0-não)");
-                            opcao = scan.nextInt();
+                            System.out.println("Digite o saldo:");
+                            saldo = scan.nextDouble();
+                            ContaSimples contaSimples = new ContaSimples(numeroDaConta, agencia, senha, ativa, saldo,pessoaFisica);
 
-                            if (opcao == 1) {
-                                System.out.println("Digite o saldo:");
-                                saldo = scan.nextDouble();
-                                conta = new ContaCorrente(numeroDaConta, agencia, pessoa, senha, ativa, saldo);
-
-                            } else {
-                                conta = new ContaCorrente(numeroDaConta, agencia, pessoa, senha, ativa);
-
-                            }
-
-                            if(banco.cadastarConta(conta)){
-                                pessoa.setContaCorrente(conta);
+                            if(banco.cadastarContaSimples(contaSimples)){
                                 System.out.println("Conta criada!!");
                             }else{
                                 System.out.println("Conta não criada!!");
                             }
-
-                            
-
                         } else {
                             System.out.println("Pessoa não encontrada!!!");
                         }
                         break;
                     case 2:
+
+                        System.out.println("Digite o documento da pessoa fisica:");
+                        documento = scan.nextLine();
+
+                        PessoaFisica pessoaFisica1 = banco.buscarPessoaFisica(documento);
+
+                        if (pessoaFisica1 != null) {
+                            System.out.println("Digite o número da conta:");
+                            numeroDaConta = scan.nextInt();
+                            scan.nextLine();
+                            System.out.println("Digite a agência:");
+                            agencia = scan.nextInt();
+                            scan.nextLine();
+                            System.out.println("Digite a senha:");
+                            senha = scan.nextLine();
+
+                            System.out.println("Está ativa (1-sim;0-não)");
+                            opcao = scan.nextInt();
+                            ativa = opcao == 1;
+                            System.out.println("Digite o saldo:");
+                            saldo = scan.nextDouble();
+
+                            System.out.println("Digite o limite:");
+                            limite = scan.nextDouble();
+
+
+                            ContaEspecial contaEspecial = new ContaEspecial(numeroDaConta, agencia, senha, ativa, saldo,pessoaFisica1,limite);
+
+                            if(banco.cadastarContaEspecial(contaEspecial)){
+                                System.out.println("Conta criada!!");
+                            }else{
+                                System.out.println("Conta não criada!!");
+                            }
+                        } else {
+                            System.out.println("Pessoa não encontrada!!!");
+                        }
+                        break;
+                    case 3:
+
+                        System.out.println("Digite o documento da pessoa fisica:");
+                        documento = scan.nextLine();
+
+                        PessoaFisica pessoaFisica2 = banco.buscarPessoaFisica(documento);
+
+                        if (pessoaFisica2 != null) {
+                            System.out.println("Digite o número da conta:");
+                            numeroDaConta = scan.nextInt();
+                            scan.nextLine();
+                            System.out.println("Digite a agência:");
+                            agencia = scan.nextInt();
+                            scan.nextLine();
+                            System.out.println("Digite a senha:");
+                            senha = scan.nextLine();
+
+                            System.out.println("Está ativa (1-sim;0-não)");
+                            opcao = scan.nextInt();
+                            ativa = opcao == 1;
+                            System.out.println("Digite o saldo:");
+                            saldo = scan.nextDouble();
+
+                            System.out.println("Digite a taxa de rendimento:");
+                            txRendimento = scan.nextDouble();
+
+
+                            ContaPoupanca contaPoupanca = new ContaPoupanca(numeroDaConta, agencia, senha, ativa, saldo,pessoaFisica2,txRendimento);
+
+                            if(banco.cadastarContaPoupanca(contaPoupanca)){
+                                System.out.println("Conta criada!!");
+                            }else{
+                                System.out.println("Conta não criada!!");
+                            }
+                        } else {
+                            System.out.println("Pessoa não encontrada!!!");
+                        }
+                        break;
+                    case 4:
                         System.out.println("Depositar!");
-                        if (conta != null) {
+                        /*if (conta != null) {
                             System.out.println("Digite um valor:");
                             valor = scan.nextDouble();
                             if (conta.depositar(valor)) {
@@ -176,12 +264,12 @@ public class App {
 
                         } else {
                             System.out.println("Não permitido! Crie uma conta!");
-                        }
+                        }*/
                         break;
 
-                    case 3:
+                    case 5:
                         System.out.println("Sacar!");
-                        if (conta != null) {
+                        /*if (conta != null) {
                             System.out.println("Digite um valor:");
                             valor = scan.nextDouble();
                             if (conta.sacar(valor)) {
@@ -192,16 +280,21 @@ public class App {
 
                         } else {
                             System.out.println("Não permitido! Crie uma conta!");
-                        }
+                        }*/
                         break;
-                    case 4:
-                        System.out.println("Extrato!");
-                        if (conta != null) {
-                            System.out.println(conta);
-                        } else {
-                            System.out.println("Não existe conta criada!");
+                    case 6:
+                        System.out.println("Relatório!");
+                        System.out.println("##Contas Simples##");
+                        for(ContaSimples cs:banco.getContasSimples()){
+                            System.out.println(cs);
                         }
-
+                        System.out.println("##Contas Especial##");
+                        for(ContaEspecial ce:banco.getContasEspeciais()){
+                            System.out.println(ce);
+                        }System.out.println("##Contas Poupanca##");
+                        for(ContaPoupanca cp:banco.getContasPoupancas()){
+                            System.out.println(cp);
+                        }
                         break;
                 }
             } else if (opcao == 3) {
@@ -209,17 +302,31 @@ public class App {
                 opcao = scan.nextInt();
                 switch (opcao) {
                     case 1:
-                        System.out.println("Listar pessoas!");
-                        ArrayList<Pessoa> lista = banco.getPessoas();
+                        System.out.println("Listar pessoas Fisicas!");
+                        ArrayList<PessoaFisica> lista = banco.getPessoasFisica();
                         for (int i = 0; i < lista.size(); i++) {
                             System.out.println(lista.get(i));
                         }
+
+                        System.out.println("Listar pessoas Juridicas!");
+                        ArrayList<PessoaJuridica> listapj = banco.getPessoasJuridica();
+                        for (int i = 0; i < listapj.size(); i++) {
+                            System.out.println(listapj.get(i));
+                        }
+
                         break;
                     case 2:
                         System.out.println("Listar contas!");
-                        ArrayList<ContaCorrente> contas = banco.getContaCorrentes();
-                        for (int i = 0; i < contas.size(); i++) {
-                            System.out.println(contas.get(i));
+                        System.out.println("##Contas Simples##");
+                        for(ContaSimples cs:banco.getContasSimples()){
+                            System.out.println(cs);
+                        }
+                        System.out.println("##Contas Especial##");
+                        for(ContaEspecial ce:banco.getContasEspeciais()){
+                            System.out.println(ce);
+                        }System.out.println("##Contas Poupanca##");
+                        for(ContaPoupanca cp:banco.getContasPoupancas()){
+                            System.out.println(cp);
                         }
                         break;
                 }
